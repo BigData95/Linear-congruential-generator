@@ -13,7 +13,7 @@ public class PruebasNumerosAleatorios {
     private int semilla;
     private int numSol;   // n en parametros
     double mejorSolucionGlobal = 100000000000000000000000000.00;
-    double mejorSolucionPrueba = 1000000000000000000000000000.00;
+    double mejorSolucionPrueba;
     double solucionPrueba = 0;
     int dimension;
 
@@ -26,7 +26,7 @@ public class PruebasNumerosAleatorios {
 
     public void prueba(String prueba) {
         random rd1 = new random(semilla);
-
+        mejorSolucionPrueba = 1000000000000000000000000000.00; //En la version enviada en la tarea 2 no iclui esta linea :c
         for (int i = 0; i < numSol; i++) {
             switch (prueba) {
                 case "schwefelUnimodal":
@@ -48,10 +48,11 @@ public class PruebasNumerosAleatorios {
                     solucionPrueba = ackley(rd1.nextAcotado(-32, 32), rd1.nextAcotado(-32, 32), rd1.nextAcotado(-32, 32), rd1.nextAcotado(-32, 32), rd1.nextAcotado(-32, 32), i + 1);
                     break;
                 case "griewank":
-                    solucionPrueba = griewank(rd1.nextAcotado(-600, 600), rd1.nextAcotado(-600, 600), rd1.nextAcotado(-600, 600), rd1.nextAcotado(-600, 600), rd1.nextAcotado(-600, 600), i);
+                    solucionPrueba = griewank(rd1.nextAcotado(-600, 600), rd1.nextAcotado(-600, 600), rd1.nextAcotado(-600, 600), rd1.nextAcotado(-600, 600), rd1.nextAcotado(-600, 600), i + 1);
                     break;
 
             }
+
             if (solucionPrueba < mejorSolucionPrueba) {
                 mejorSolucionPrueba = solucionPrueba;
             }
@@ -77,7 +78,6 @@ public class PruebasNumerosAleatorios {
         if (dimension == 3) {
             x4 = 0;
             x5 = 0;
-            //* Math.abs(x1);
         }
         suma = Math.pow(x1, 2) + Math.pow(x2, 2) + Math.pow(x3, 2) + Math.pow(x4, 2) + Math.pow(x5, 2);
         if (dimension == 3) {
@@ -91,13 +91,15 @@ public class PruebasNumerosAleatorios {
 
     private double schwefelMultimodal(double x1, double x2, double x3, double x4, double x5) {
         double suma = 0;
+        double argsin = (Math.sin(Math.toRadians(Math.sqrt(Math.abs(x1)))));
         if (dimension == 3) {
             x4 = 0;
             x5 = 0;
         }
-        suma = (x1 * Math.sin(Math.sqrt(Math.abs(x1)))) + (x2 * Math.sin(Math.sqrt(Math.abs(x1))))
-                + (x3 * Math.sin(Math.sqrt(Math.abs(x3)))) + (x4 * Math.sin(Math.sqrt(Math.abs(x4))))
-                + (x5 * Math.sin(Math.sqrt(Math.abs(x5))));
+        suma = ( (x1 * (Math.sin(Math.toRadians(Math.sqrt(Math.abs(x1)))))) + (x2 * (Math.sin(Math.toRadians(Math.sqrt(Math.abs(x1))))))
+                + (x3 * (Math.sin(Math.toRadians(Math.sqrt(Math.abs(x3)))))) + (x4 * (Math.sin(Math.toRadians(Math.sqrt(Math.abs(x4))))))
+                + (x5 * (Math.sin(Math.toRadians(Math.sqrt(Math.abs(x5)))))) );
+
 
         return 418.9829 - suma;
     }
@@ -105,15 +107,15 @@ public class PruebasNumerosAleatorios {
     private double rosenbrock(double x1, double x2, double x3, double x4, double x5, double x6) {
         double suma = 0;
         if (dimension == 3) {
-            suma = (100 * (x2 - Math.pow(x1, 2)) + (Math.pow(x1 - 1, 2)))
-                    + (100 * (x3 - Math.pow(x1, 2)) + (Math.pow(x2 - 1, 2)))
-                    + (100 * (x4 - Math.pow(x1, 2)) + (Math.pow(x3 - 1, 2)));
+            suma = (100 * Math.pow((x2 - Math.pow(x1, 2)), 2) + (Math.pow(x1 - 1, 2)))
+                    + (100 * Math.pow((x3 - Math.pow(x1, 2)), 2) + (Math.pow(x2 - 1, 2)))
+                    + (100 * Math.pow((x4 - Math.pow(x1, 2)), 2) + (Math.pow(x3 - 1, 2)));
         } else {
-            suma = (100 * (x2 - Math.pow(x1, 2)) + (Math.pow(x1 - 1, 2)))
-                    + (100 * (x3 - Math.pow(x1, 2)) + (Math.pow(x2 - 1, 2)))
-                    + (100 * (x4 - Math.pow(x1, 2)) + (Math.pow(x3 - 1, 2)))
-                    + (100 * (x5 - Math.pow(x1, 2)) + (Math.pow(x4 - 1, 2)))
-                    + (100 * (x6 - Math.pow(x1, 2)) + (Math.pow(x5 - 1, 2)));
+            suma = (100 * Math.pow((x2 - Math.pow(x1, 2)), 2) + (Math.pow(x1 - 1, 2)))
+                    + (100 * Math.pow((x3 - Math.pow(x1, 2)), 2) + (Math.pow(x2 - 1, 2)))
+                    + (100 * Math.pow((x4 - Math.pow(x1, 2)), 2) + (Math.pow(x3 - 1, 2)))
+                    + (100 * Math.pow((x5 - Math.pow(x1, 2)), 2) + (Math.pow(x4 - 1, 2)))
+                    + (100 * Math.pow((x6 - Math.pow(x1, 2)), 2) + (Math.pow(x5 - 1, 2)));
         }
 
         return suma;
@@ -165,17 +167,16 @@ public class PruebasNumerosAleatorios {
     private double griewank(double x1, double x2, double x3, double x4, double x5, int i) {
         double suma = 0;
         double multiplicacion = 1;
-        multiplicacion = Math.cos((x1 / Math.sqrt(i))) + 1;
+
         if (dimension == 3) {
-            multiplicacion = (Math.cos((x1 / Math.sqrt(i))) + 1) + (Math.cos((x2 / Math.sqrt(i))) + 1) + (Math.cos((x3 / Math.sqrt(i))) + 1);
+            multiplicacion = (Math.cos((x1 / Math.sqrt(i))) + 1) * (Math.cos((x2 / Math.sqrt(i))) + 1) * (Math.cos((x3 / Math.sqrt(i))) + 1);
             x4 = 0;
             x5 = 0;
         }
-        multiplicacion = (Math.cos((x1 / Math.sqrt(i))) + 1) + (Math.cos((x2 / Math.sqrt(i))) + 1) + (Math.cos((x3 / Math.sqrt(i))) + 1)
-                + (Math.cos((x4 / Math.sqrt(i))) + 1) + (Math.cos((x5
-                / Math.sqrt(i))) + 1);
+        multiplicacion = ((Math.cos((x1 / Math.sqrt(i)))) + 1) * ((Math.cos((x2 / Math.sqrt(i)))) + 1) * ((Math.cos((x3 / Math.sqrt(i)))) + 1)
+                * ((Math.cos((x4 / Math.sqrt(i)))) + 1) * ((Math.cos((x5 / Math.sqrt(i)))) + 1);
         suma = (Math.pow(x1, 2)) + (Math.pow(x2, 2)) + (Math.pow(x3, 2)) + (Math.pow(x4, 2)) + (Math.pow(x5, 2));
 
-        return (1 / 400) * suma - multiplicacion;
+        return 0.00025 * (suma - multiplicacion);
     }
 }

@@ -29,10 +29,10 @@ public class GeneradorNumeroAleatorios {
     }
 
     public void pruebaAleatorio() {
-        PruebasNumerosAleatorios pruebaDimension = new PruebasNumerosAleatorios(50, 10, 3);
+        PruebasNumerosAleatorios pruebaDimension = new PruebasNumerosAleatorios(50, 10, 5);
 
         pruebaDimension.prueba("schwefelUnimodal");
-        System.out.println("Solucion Prueba Schwefel: " +(pruebaDimension.getSolucionPruba()));
+        System.out.println("Solucion Prueba Schwefel Unimodal: " +(pruebaDimension.getSolucionPruba()));
 
         pruebaDimension.prueba("rosenbrock");
         System.out.println("Solucion prueba Rosenbrock:  " +(pruebaDimension.getSolucionPruba()));
@@ -41,7 +41,7 @@ public class GeneradorNumeroAleatorios {
         System.out.println("Solucion prueba Paso: " + (pruebaDimension.getSolucionPruba()));
 
         pruebaDimension.prueba("schwefelMultimodal");
-        System.out.println("Solucion prueba Schwefel: " +(pruebaDimension.getSolucionPruba()));
+        System.out.println("Solucion prueba Schwefel Multimodal: " +(pruebaDimension.getSolucionPruba()));
 
         pruebaDimension.prueba("rastrigin");
         System.out.println("Solucion prueba Rastrigin: " + (pruebaDimension.getSolucionPruba()));
