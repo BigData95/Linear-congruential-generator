@@ -26,7 +26,7 @@ public class PruebasNumerosAleatorios {
 
     public void prueba(String prueba) {
         random rd1 = new random(semilla);
-        mejorSolucionPrueba = 1000000000000000000000000000.00; //En la version enviada en la tarea 2 no iclui esta linea :c
+        mejorSolucionPrueba = 1000000000000000000000000000.00;
         for (int i = 0; i < numSol; i++) {
             switch (prueba) {
                 case "schwefelUnimodal":
